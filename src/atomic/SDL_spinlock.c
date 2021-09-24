@@ -50,6 +50,21 @@ extern _inline int _SDL_xchg_watcom(volatile int *a, int v);
   modify exact [eax];
 #endif /* __WATCOMC__ && __386__ */
 
+#if defined(__SNC__) && defined(__psp2__)
+#pragma control %push O=2
+static int32_t InterlockedExchange(volatile int32_t* target, int32_t value)
+{
+    int32_t old;
+    do {
+        old = __ldrex(target);
+    } while (__strex(value, target));
+    return old;
+}
+#pragma control %pop O
+
+#define _InterlockedExchange_rel InterlockedExchange
+#endif /* __SNC__ && __psp2__ */
+
 /* This function is where all the magic happens... */
 SDL_bool
 SDL_AtomicTryLock(SDL_SpinLock *lock)
@@ -78,7 +93,7 @@ SDL_AtomicTryLock(SDL_SpinLock *lock)
 #elif defined(_MSC_VER) && (defined(_M_ARM) || defined(_M_ARM64))
     return (_InterlockedExchange_acq(lock, 1) == 0);
 
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) || (defined(__SNC__) && defined(__psp2__))
     SDL_COMPILE_TIME_ASSERT(locksize, sizeof(*lock) == sizeof(long));
     return (InterlockedExchange((long*)lock, 1) == 0);
 
@@ -147,7 +162,7 @@ SDL_AtomicTryLock(SDL_SpinLock *lock)
     #define PAUSE_INSTRUCTION() __asm__ __volatile__("or 27,27,27");
 #elif defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_X64))
     #define PAUSE_INSTRUCTION() _mm_pause()  /* this is actually "rep nop" and not a SIMD instruction. No inline asm in MSVC x86-64! */
-#elif defined(_MSC_VER) && (defined(_M_ARM) || defined(_M_ARM64))
+#elif (defined(_MSC_VER) && (defined(_M_ARM) || defined(_M_ARM64))) || (defined(__SNC__) && defined(__psp2__))
     #define PAUSE_INSTRUCTION() __yield()
 #elif defined(__WATCOMC__) && defined(__386__)
     /* watcom assembler rejects PAUSE if CPU < i686, and it refuses REP NOP as an invalid combination. Hardcode the bytes.  */
@@ -179,7 +194,7 @@ SDL_AtomicUnlock(SDL_SpinLock *lock)
 #if HAVE_GCC_ATOMICS || HAVE_GCC_SYNC_LOCK_TEST_AND_SET
     __sync_lock_release(lock);
 
-#elif defined(_MSC_VER) && (defined(_M_ARM) || defined(_M_ARM64))
+#elif (defined(_MSC_VER) && (defined(_M_ARM) || defined(_M_ARM64))) || (defined(__SNC__) && defined(__psp2__))
     _InterlockedExchange_rel(lock, 0);
 
 #elif defined(_MSC_VER)

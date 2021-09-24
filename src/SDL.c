@@ -24,7 +24,7 @@
 #include "core/windows/SDL_windows.h"
 #elif defined(__OS2__)
 #include <stdlib.h> /* For _exit() */
-#elif !defined(__WINRT__)
+#elif !defined(__WINRT__) && !defined(__SNC__)
 #include <unistd.h> /* For _exit(), etc. */
 #endif
 #if defined(__OS2__)
@@ -84,6 +84,8 @@ SDL_NORETURN void SDL_ExitProcess(int exitcode)
     _exit(exitcode);
 #elif defined(HAVE__EXIT) /* Upper case _Exit() */
     _Exit(exitcode);
+#elif defined(__SNC__)
+	exit(exitcode);
 #else
     _exit(exitcode);
 #endif

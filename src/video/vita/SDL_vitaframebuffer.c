@@ -24,7 +24,11 @@
 
 #include "SDL_vitavideo.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/kernel/sysmem.h>
+#endif
 
 #define SCREEN_W 960
 #define SCREEN_H 544
@@ -84,7 +88,11 @@ int VITA_CreateWindowFramebuffer(_THIS, SDL_Window * window, Uint32 * format, vo
     framebuf.pixelformat = DISPLAY_PIXEL_FORMAT;
     framebuf.width       = SCREEN_W;
     framebuf.height      = SCREEN_H;
+#if defined(__SNC__)
+	sceDisplaySetFrameBuf(&framebuf, SCE_DISPLAY_UPDATETIMING_NEXTVSYNC);
+#else
     sceDisplaySetFrameBuf(&framebuf, SCE_DISPLAY_SETBUF_NEXTFRAME);
+#endif
 
     *pixels = data->buffer;
 

@@ -28,8 +28,12 @@
 #include "../SDL_timer_c.h"
 #include <stdlib.h>
 #include <time.h>
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <sys/time.h>
 #include <psp2/kernel/processmgr.h>
+#endif
 
 static uint64_t start;
 static SDL_bool ticks_started = SDL_FALSE;

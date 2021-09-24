@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\SDL.c" />
+    <ClCompile Include="..\..\src\SDL_assert.c" />
+    <ClCompile Include="..\..\src\SDL_dataqueue.c" />
+    <ClCompile Include="..\..\src\SDL_error.c" />
+    <ClCompile Include="..\..\src\SDL_hints.c" />
+    <ClCompile Include="..\..\src\SDL_log.c" />
+    <ClCompile Include="..\..\src\atomic\SDL_atomic.c">
+      <Filter>atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\atomic\SDL_spinlock.c">
+      <Filter>atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_audio.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_audiocvt.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_audiodev.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_audiotypecvt.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_mixer.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\SDL_wave.c">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cpuinfo\SDL_cpuinfo.c">
+      <Filter>cpuinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\dynapi\SDL_dynapi.c">
+      <Filter>dynapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_clipboardevents.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_displayevents.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_dropevents.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_events.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_gesture.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_keyboard.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_mouse.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_quit.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_touch.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\events\SDL_windowevents.c">
+      <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\file\SDL_rwops.c">
+      <Filter>file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\haptic\SDL_haptic.c">
+      <Filter>haptic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_atan2.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_exp.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_fmod.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_log.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_log10.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_pow.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_rem_pio2.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\e_sqrt.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\k_cos.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\k_rem_pio2.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\k_sin.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\k_tan.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_atan.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_copysign.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_cos.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_fabs.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_floor.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_scalbn.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_sin.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libm\s_tan.c">
+      <Filter>libm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\locale\SDL_locale.c">
+      <Filter>locale</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\SDL_url.c">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\power\SDL_power.c">
+      <Filter>power</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\SDL_d3dmath.c">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\SDL_render.c">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\SDL_yuv_sw.c">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\vitagxm\SDL_render_vita_gxm.c">
+      <Filter>render\vitagxm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\vitagxm\SDL_render_vita_gxm_memory.c">
+      <Filter>render\vitagxm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\vitagxm\SDL_render_vita_gxm_tools.c">
+      <Filter>render\vitagxm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\opengles2\SDL_render_gles2.c">
+      <Filter>render\opengles2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\opengles2\SDL_shaders_gles2.c">
+      <Filter>render\opengles2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\opengles\SDL_render_gles.c">
+      <Filter>render\opengles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sensor\SDL_sensor.c">
+      <Filter>sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_crc32.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_getenv.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_iconv.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_malloc.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_qsort.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_stdlib.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_string.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdlib\SDL_strtokr.c">
+      <Filter>stdlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\SDL_thread.c">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\SDL_timer.c">
+      <Filter>timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_0.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_1.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_A.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_auto.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_copy.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_N.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_blit_slow.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_bmp.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_clipboard.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_egl.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_fillrect.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_pixels.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_rect.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_RLEaccel.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_shape.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_stretch.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_surface.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_video.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_vulkan_utils.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\SDL_yuv.c">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\yuv2rgb\yuv_rgb.c">
+      <Filter>video\yuv2rgb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\joystick\SDL_gamecontroller.c">
+      <Filter>joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\joystick\SDL_joystick.c">
+      <Filter>joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\vita\SDL_sysurl.c">
+      <Filter>misc\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\vita\SDL_vitaaudio.c">
+      <Filter>audio\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\filesystem\vita\SDL_sysfilesystem.c">
+      <Filter>filesystem\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\joystick\vita\SDL_sysjoystick.c">
+      <Filter>joystick\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\power\vita\SDL_syspower.c">
+      <Filter>power\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\vita\SDL_syscond.c">
+      <Filter>thread\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\vita\SDL_sysmutex.c">
+      <Filter>thread\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\vita\SDL_syssem.c">
+      <Filter>thread\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\vita\SDL_systhread.c">
+      <Filter>thread\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\thread\generic\SDL_systls.c">
+      <Filter>thread\generic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\vita\SDL_systimer.c">
+      <Filter>timer\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sensor\vita\SDL_vitasensor.c">
+      <Filter>sensor\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitaframebuffer.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitagl.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitagl_pvr.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitakeyboard.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitamessagebox.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitamouse.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitatouch.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\vita\SDL_vitavideo.c">
+      <Filter>video\vita</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\haptic\dummy\SDL_syshaptic.c">
+      <Filter>haptic\dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\loadso\dummy\SDL_sysloadso.c">
+      <Filter>loadso\dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\locale\dummy\SDL_syslocale.c">
+      <Filter>locale\dummy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="atomic">
+      <UniqueIdentifier>{52926810-28bf-4b19-8129-b213b860c321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="audio">
+      <UniqueIdentifier>{fe24a8a7-694b-4977-bf63-cc8be7941c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpuinfo">
+      <UniqueIdentifier>{594efbd4-1f11-451d-ae50-bac43fb42f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dynapi">
+      <UniqueIdentifier>{4bb00f58-1ff2-4b04-b2cf-f2f72195635f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="events">
+      <UniqueIdentifier>{42142668-a2f3-4ddb-9358-20a3838f2ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="file">
+      <UniqueIdentifier>{a8d8e711-d077-47ef-83fa-5fb0491919c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="haptic">
+      <UniqueIdentifier>{7e69080c-3823-4fa8-909c-a6aee182e2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libm">
+      <UniqueIdentifier>{eaa05079-cd35-4764-be81-e7bd8b62e806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="locale">
+      <UniqueIdentifier>{04b4fd2e-2794-4721-99d1-384efb2be3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{b7d67dcc-0de9-4123-9f38-a1163330fa41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="power">
+      <UniqueIdentifier>{4cfd3463-7860-4dac-a9da-1dcc9d5d3a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{c02bc82f-ea97-4536-a25c-e3f35e515598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\opengles">
+      <UniqueIdentifier>{5fffd0af-1de0-467f-9fd6-1e927638be2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\opengles2">
+      <UniqueIdentifier>{e7a89176-d456-452a-885c-161822f16135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\vitagxm">
+      <UniqueIdentifier>{2435d76b-234f-4e53-a257-a982faa4bf3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensor">
+      <UniqueIdentifier>{5c3769ad-1167-4096-aca3-8800152a36b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdlib">
+      <UniqueIdentifier>{53c404a9-1d82-4673-9525-a313bfec9d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{83b522bc-22d9-4c09-ba90-e9be623f73cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="timer">
+      <UniqueIdentifier>{db62f333-59ba-4b53-8191-6316a4c1ddc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="video">
+      <UniqueIdentifier>{3bb211ad-1362-4704-b38d-7af9f956164b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="video\yuv2rgb">
+      <UniqueIdentifier>{3d6cc3c2-56a3-4a7b-976b-f0b5b76260f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="joystick">
+      <UniqueIdentifier>{873fdc92-a7a8-4b01-ac5d-817b83a22e33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc\vita">
+      <UniqueIdentifier>{2c2de214-55f3-489e-9d78-6c8c76545d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="audio\vita">
+      <UniqueIdentifier>{756b673c-f6a6-4ee0-bdef-efb7b6276077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="filesystem">
+      <UniqueIdentifier>{ad274247-fd0d-4571-af8e-0382cbcb1f52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="filesystem\vita">
+      <UniqueIdentifier>{32d396f3-1bd8-4656-86e2-4ec1d8898d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="joystick\vita">
+      <UniqueIdentifier>{706124f5-f26d-4790-951f-0c4aa817c6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="power\vita">
+      <UniqueIdentifier>{50263382-428f-4fe6-bb9a-b8588bd22afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread\vita">
+      <UniqueIdentifier>{a8b6d973-b43a-4e19-bdda-a1e849aeecdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread\generic">
+      <UniqueIdentifier>{daa09224-878c-4f39-b296-f703d37caf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="timer\vita">
+      <UniqueIdentifier>{21b35488-d85b-49f6-9e75-c16e789b61dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensor\vita">
+      <UniqueIdentifier>{74465b14-d0c2-4faf-8e2c-f29d40aa8154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="video\vita">
+      <UniqueIdentifier>{e83900a6-aeba-4e10-a07a-1bcea6ede569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="haptic\dummy">
+      <UniqueIdentifier>{dd17e0e3-d0ca-473d-80a7-70cb587add53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="loadso">
+      <UniqueIdentifier>{c0ee5d73-88d3-4b38-9de6-a377e86132b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="loadso\dummy">
+      <UniqueIdentifier>{ad7b8689-9251-46fe-bfcf-6853d9a4e393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="locale\dummy">
+      <UniqueIdentifier>{148fa8c3-432a-4552-b583-881872fb0f9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

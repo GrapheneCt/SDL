@@ -27,7 +27,11 @@
 #include "SDL_sensor.h"
 #include "SDL_vitasensor.h"
 #include "../SDL_syssensor.h"
+#if defined(__SNC__)
+#include <motion.h>
+#else
 #include <psp2/motion.h>
+#endif
 
 #if !defined(SCE_MOTION_MAX_NUM_STATES)
 #define SCE_MOTION_MAX_NUM_STATES 64

@@ -22,9 +22,14 @@
 #ifndef SDL_RENDER_VITA_GXM_MEMORY_H
 #define SDL_RENDER_VITA_GXM_MEMORY_H
 
+#if defined(__SNC__)
+#include <gxm.h>
+#include <kernel.h>
+#else
 #include <psp2/gxm.h>
 #include <psp2/types.h>
 #include <psp2/kernel/sysmem.h>
+#endif
 
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
 

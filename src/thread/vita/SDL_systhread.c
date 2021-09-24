@@ -31,8 +31,13 @@
 #include "SDL_thread.h"
 #include "../SDL_systhread.h"
 #include "../SDL_thread_c.h"
+
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/types.h>
 #include <psp2/kernel/threadmgr.h>
+#endif
 
 #define VITA_THREAD_STACK_SIZE_MIN 0x1000 // 4KiB
 #define VITA_THREAD_STACK_SIZE_MAX 0x2000000 // 32MiB
@@ -107,7 +112,12 @@ void SDL_SYS_WaitThread(SDL_Thread *thread)
 
 void SDL_SYS_DetachThread(SDL_Thread *thread)
 {
-    /* Do nothing. */
+
+}
+
+void SDL_SYS_KillThread(SDL_Thread *thread)
+{
+    sceKernelDeleteThread(thread->handle);
 }
 
 int SDL_SYS_SetThreadPriority(SDL_ThreadPriority priority)

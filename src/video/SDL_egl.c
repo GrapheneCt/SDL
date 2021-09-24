@@ -546,7 +546,7 @@ SDL_EGL_LoadLibrary(_THIS, const char *egl_path, NativeDisplayType native_displa
     /* Get the EGL version with a valid egl_display, for EGL <= 1.4 */
     SDL_EGL_GetVersion(_this);
 
-    _this->egl_data->is_offscreen = SDL_FALSE;
+    _this->egl_data->is_offscreen = 0;
 
     return 0;
 }
@@ -634,7 +634,7 @@ SDL_EGL_InitializeOffscreen(_THIS, int device)
     /* Get the EGL version with a valid egl_display, for EGL <= 1.4 */
     SDL_EGL_GetVersion(_this);
 
-    _this->egl_data->is_offscreen = SDL_TRUE;
+    _this->egl_data->is_offscreen = 1;
 
     return 0;
 }
@@ -1027,11 +1027,10 @@ SDL_EGL_CreateContext(_THIS, EGLSurface egl_surface)
 
     /* Bind the API */
     if (profile_es) {
-        _this->egl_data->apitype = EGL_OPENGL_ES_API;
+        _this->egl_data->eglBindAPI(EGL_OPENGL_ES_API);
     } else {
-        _this->egl_data->apitype = EGL_OPENGL_API;
+        _this->egl_data->eglBindAPI(EGL_OPENGL_API);
     }
-    _this->egl_data->eglBindAPI(_this->egl_data->apitype);
 
     egl_context = _this->egl_data->eglCreateContext(_this->egl_data->egl_display,
                                       _this->egl_data->egl_config,
@@ -1107,11 +1106,6 @@ SDL_EGL_MakeCurrent(_THIS, EGLSurface egl_surface, SDL_GLContext context)
         } else {
             return SDL_SetError("OpenGL not initialized");  /* something clearly went wrong somewhere. */
         }
-    }
-
-    /* Make sure current thread has a valid API bound to it. */
-    if (_this->egl_data->eglBindAPI) {
-        _this->egl_data->eglBindAPI(_this->egl_data->apitype);
     }
 
     /* The android emulator crashes badly if you try to eglMakeCurrent 

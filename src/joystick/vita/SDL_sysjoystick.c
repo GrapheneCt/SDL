@@ -23,9 +23,14 @@
 #if SDL_JOYSTICK_VITA
 
 /* This is the PSVita implementation of the SDL joystick API */
+#if defined(__SNC__)
+#include <kernel.h>
+#include <ctrl.h>
+#else
 #include <psp2/types.h>
 #include <psp2/ctrl.h>
 #include <psp2/kernel/threadmgr.h>
+#endif
 
 #include <stdio.h>      /* For the definition of NULL */
 #include <stdlib.h>
@@ -40,10 +45,17 @@
 #include "SDL_timer.h"
 
 /* Current pad state */
+#if defined(__SNC__)
+static SceCtrlData2 pad0 = { .lx = 0,.ly = 0,.rx = 0,.ry = 0,.l2 = 0,.r2 = 0,.buttons = 0 };
+static SceCtrlData2 pad1 = { .lx = 0,.ly = 0,.rx = 0,.ry = 0,.l2 = 0,.r2 = 0,.buttons = 0 };
+static SceCtrlData2 pad2 = { .lx = 0,.ly = 0,.rx = 0,.ry = 0,.l2 = 0,.r2 = 0,.buttons = 0 };
+static SceCtrlData2 pad3 = { .lx = 0,.ly = 0,.rx = 0,.ry = 0,.l2 = 0,.r2 = 0,.buttons = 0 };
+#else
 static SceCtrlData pad0 = { .lx = 0, .ly = 0, .rx = 0, .ry = 0, .lt = 0, .rt = 0, .buttons = 0 };
 static SceCtrlData pad1 = { .lx = 0, .ly = 0, .rx = 0, .ry = 0, .lt = 0, .rt = 0, .buttons = 0 };
 static SceCtrlData pad2 = { .lx = 0, .ly = 0, .rx = 0, .ry = 0, .lt = 0, .rt = 0, .buttons = 0 };
 static SceCtrlData pad3 = { .lx = 0, .ly = 0, .rx = 0, .ry = 0, .lt = 0, .rt = 0, .buttons = 0 };
+#endif
 
 static int port_map[4]= { 0, 2, 3, 4 }; //index: SDL joy number, entry: Vita port number
 static int ext_port_map[4]= { 1, 2, 3, 4 }; //index: SDL joy number, entry: Vita port number. For external controllers
@@ -55,8 +67,13 @@ static const unsigned int button_map[] = {
     SCE_CTRL_CIRCLE,
     SCE_CTRL_CROSS,
     SCE_CTRL_SQUARE,
+#if defined(__SNC__)
+	SCE_CTRL_L,
+	SCE_CTRL_R,
+#else
     SCE_CTRL_LTRIGGER,
     SCE_CTRL_RTRIGGER,
+#endif
     SCE_CTRL_DOWN,
     SCE_CTRL_LEFT,
     SCE_CTRL_UP,
@@ -129,8 +146,13 @@ int VITA_JoystickInit(void)
     SceCtrlPortInfo myPortInfo;
 
     /* Setup input */
+#if defined(__SNC__)
+	sceCtrlSetSamplingMode(SCE_CTRL_MODE_DIGITALANALOG_WIDE);
+	sceCtrlSetSamplingModeExt(SCE_CTRL_MODE_DIGITALANALOG_WIDE);
+#else
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG_WIDE);
     sceCtrlSetSamplingModeExt(SCE_CTRL_MODE_ANALOG_WIDE);
+#endif
 
     /* Create an accurate map from analog inputs (0 to 255)
        to SDL joystick positions (-32768 to 32767) */
@@ -241,7 +263,11 @@ static void VITA_JoystickUpdate(SDL_Joystick *joystick)
     static unsigned char old_ry[] = { 0, 0, 0, 0 };
     static unsigned char old_lt[] = { 0, 0, 0, 0 };
     static unsigned char old_rt[] = { 0, 0, 0, 0 };
+#if defined(__SNC__)
+    SceCtrlData2 *pad = NULL;
+#else
     SceCtrlData *pad = NULL;
+#endif
     SDL_bool fallback = SDL_FALSE;
 
     int index = (int) SDL_JoystickInstanceID(joystick);
@@ -255,7 +281,11 @@ static void VITA_JoystickUpdate(SDL_Joystick *joystick)
     if (index == 0) {
         if (sceCtrlPeekBufferPositiveExt2(ext_port_map[index], pad, 1) < 0) {
             // on vita fallback to port 0
+#if defined(__SNC__)
+			sceCtrlPeekBufferPositive2(port_map[index], pad, 1);
+#else
             sceCtrlPeekBufferPositive(port_map[index], pad, 1);
+#endif
             fallback = SDL_TRUE;
         }
     } else {
@@ -268,8 +298,13 @@ static void VITA_JoystickUpdate(SDL_Joystick *joystick)
     ly = pad->ly;
     rx = pad->rx;
     ry = pad->ry;
+#if defined(__SNC__)
+	lt = pad->l2;
+	rt = pad->r2;
+#else
     lt = pad->lt;
     rt = pad->rt;
+#endif
 
     // Axes
 

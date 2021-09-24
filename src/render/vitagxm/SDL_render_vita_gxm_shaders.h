@@ -22,7 +22,11 @@
 #ifndef SDL_RENDER_VITA_GXM_SHADERS_H
 #define SDL_RENDER_VITA_GXM_SHADERS_H
 
+#if defined(__SNC__)
+#include <gxm.h>
+#else
 #include <psp2/gxm.h>
+#endif
 
 #define gxm_shader_clear_f_size 232
 static const unsigned char gxm_shader_clear_f[gxm_shader_clear_f_size] = {

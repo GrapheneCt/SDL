@@ -30,9 +30,13 @@
 #include "SDL_error.h"
 #include "SDL_thread.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/types.h>
 #include <psp2/kernel/error.h>
 #include <psp2/kernel/threadmgr.h>
+#endif
 
 struct SDL_semaphore {
     SceUID  semid;

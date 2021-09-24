@@ -27,12 +27,16 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <psp2/io/stat.h>
-#include <sys/types.h>
 #include <limits.h>
+#if defined(__SNC__)
+#include <kernel.h>
+#else
+#include <unistd.h>
+#include <sys/types.h>
 #include <fcntl.h>
+#include <psp2/io/stat.h>
+#endif
 
 #include "SDL_error.h"
 #include "SDL_stdinc.h"

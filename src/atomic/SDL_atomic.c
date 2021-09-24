@@ -35,6 +35,12 @@
 #include <atomic.h>
 #endif
 
+#if defined(__SNC__) && defined(__psp2__)
+int32_t sceKernelAtomicGetAndAdd32(volatile int32_t* ptr, int32_t value);
+int32_t sceKernelAtomicGetAndOr32(volatile int32_t* ptr, int32_t value);
+int32_t sceKernelAtomicGetAndSet32(volatile int32_t* ptr, int32_t value);
+#endif
+
 /* The __atomic_load_n() intrinsic showed up in different times for different compilers. */
 #if defined(__clang__)
 #  if __has_builtin(__atomic_load_n) || defined(HAVE_GCC_ATOMICS)
@@ -193,6 +199,8 @@ SDL_AtomicSet(SDL_atomic_t *a, int v)
 {
 #ifdef HAVE_MSC_ATOMICS
     return _InterlockedExchange((long*)&a->value, v);
+#elif defined(__SNC__) && defined(__psp2__)
+    return sceKernelAtomicGetAndSet32((volatile int32_t*)&a->value, v);
 #elif defined(HAVE_WATCOM_ATOMICS)
     return _SDL_xchg_watcom(&a->value, v);
 #elif defined(HAVE_GCC_ATOMICS)
@@ -215,6 +223,8 @@ SDL_AtomicSetPtr(void **a, void *v)
 {
 #if defined(HAVE_MSC_ATOMICS) && (_M_IX86)
     return (void *) _InterlockedExchange((long *)a, (long) v);
+#elif defined(__SNC__) && defined(__psp2__)
+    return sceKernelAtomicGetAndSet32((volatile int32_t*)a, (int32_t)v);
 #elif defined(HAVE_MSC_ATOMICS) && (!_M_IX86)
     return _InterlockedExchangePointer(a, v);
 #elif defined(HAVE_WATCOM_ATOMICS)
@@ -237,6 +247,8 @@ SDL_AtomicAdd(SDL_atomic_t *a, int v)
 {
 #ifdef HAVE_MSC_ATOMICS
     return _InterlockedExchangeAdd((long*)&a->value, v);
+#elif defined(__SNC__) && defined(__psp2__)
+    return sceKernelAtomicGetAndAdd32((volatile int32_t*)&a->value, v);
 #elif defined(HAVE_WATCOM_ATOMICS)
     return _SDL_xadd_watcom(&a->value, v);
 #elif defined(HAVE_GCC_ATOMICS)
@@ -264,6 +276,8 @@ SDL_AtomicGet(SDL_atomic_t *a)
 {
 #ifdef HAVE_ATOMIC_LOAD_N
     return __atomic_load_n(&a->value, __ATOMIC_SEQ_CST);
+#elif defined(__SNC__) && defined(__psp2__)
+    return sceKernelAtomicGetAndOr32((volatile int32_t*)&a->value, 0);
 #else
     int value;
     do {
@@ -278,6 +292,8 @@ SDL_AtomicGetPtr(void **a)
 {
 #ifdef HAVE_ATOMIC_LOAD_N
     return __atomic_load_n(a, __ATOMIC_SEQ_CST);
+#elif defined(__SNC__) && defined(__psp2__)
+    return sceKernelAtomicGetAndOr32((volatile int32_t*)a, 0);
 #else
     void *value;
     do {

@@ -26,6 +26,13 @@
 #include "../SDL_sysrender.h"
 #include "SDL_log.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#include <appmgr.h>
+#include <display.h>
+#include <gxm.h>
+#include <message_dialog.h>
+#else
 #include <psp2/kernel/processmgr.h>
 #include <psp2/appmgr.h>
 #include <psp2/display.h>
@@ -33,6 +40,7 @@
 #include <psp2/types.h>
 #include <psp2/kernel/sysmem.h>
 #include <psp2/message_dialog.h>
+#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -152,7 +160,11 @@ display_callback(const void *callback_data)
     framebuf.pixelformat = VITA_GXM_PIXEL_FORMAT;
     framebuf.width       = VITA_GXM_SCREEN_WIDTH;
     framebuf.height      = VITA_GXM_SCREEN_HEIGHT;
+#if defined(__SNC__)
+	sceDisplaySetFrameBuf(&framebuf, SCE_DISPLAY_UPDATETIMING_NEXTVSYNC);
+#else
     sceDisplaySetFrameBuf(&framebuf, SCE_DISPLAY_SETBUF_NEXTFRAME);
+#endif
 
     if (display_data->wait_vblank) {
         sceDisplayWaitVblankStart();
@@ -1027,18 +1039,6 @@ create_gxm_texture(VITA_GXM_RenderData *data, unsigned int w, unsigned int h, Sc
         &texture->data_UID
     );
 
-    /* Try SCE_KERNEL_MEMBLOCK_TYPE_USER_RW_UNCACHE in case we're out of VRAM */
-    if (!texture_data) {
-        SDL_LogWarn(SDL_LOG_CATEGORY_RENDER, "CDRAM texture allocation failed\n");
-        texture_data = mem_gpu_alloc(
-            SCE_KERNEL_MEMBLOCK_TYPE_USER_RW_UNCACHE,
-            tex_size,
-            SCE_GXM_TEXTURE_ALIGNMENT,
-            SCE_GXM_MEMORY_ATTRIB_READ | SCE_GXM_MEMORY_ATTRIB_WRITE,
-            &texture->data_UID
-        );
-    }
-
     if (!texture_data) {
         free(texture);
         return NULL;
@@ -1056,7 +1056,6 @@ create_gxm_texture(VITA_GXM_RenderData *data, unsigned int w, unsigned int h, Sc
         const uint32_t alignedHeight = ALIGN(h, SCE_GXM_TILE_SIZEY);
         uint32_t sampleCount = alignedWidth*alignedHeight;
         uint32_t depthStrideInSamples = alignedWidth;
-        const uint32_t alignedColorSurfaceStride = ALIGN(w, 8);
 
         int err = sceGxmColorSurfaceInit(
             &texture->gxm_colorsurface,
@@ -1066,7 +1065,7 @@ create_gxm_texture(VITA_GXM_RenderData *data, unsigned int w, unsigned int h, Sc
             SCE_GXM_OUTPUT_REGISTER_SIZE_32BIT,
             w,
             h,
-            alignedColorSurfaceStride,
+            w,
             texture_data
         );
 

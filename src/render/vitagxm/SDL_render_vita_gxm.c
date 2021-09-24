@@ -36,12 +36,20 @@
 #include "SDL_render_vita_gxm_tools.h"
 #include "SDL_render_vita_gxm_memory.h"
 
-#include <psp2/common_dialog.h>
-
 /* #define DEBUG_RAZOR */
+
+#if defined(__SNC__)
+#include <common_dialog.h>
+
+#if DEBUG_RAZOR
+#include <libsysmodule.h>
+#endif
+#else
+#include <psp2/common_dialog.h>
 
 #if DEBUG_RAZOR
 #include <psp2/sysmodule.h>
+#endif
 #endif
 
 static SDL_Renderer *VITA_GXM_CreateRenderer(SDL_Window *window, Uint32 flags);
@@ -1084,9 +1092,6 @@ VITA_GXM_RunCommandQueue(SDL_Renderer * renderer, SDL_RenderCommand *cmd, void *
         cmd = cmd->next;
     }
 
-    sceGxmEndScene(data->gxm_context, NULL, NULL);
-    data->drawing = SDL_FALSE;
-
     return 0;
 }
 
@@ -1098,7 +1103,11 @@ void read_pixels(int x, int y, size_t width, size_t height, void *data) {
 
     pParam.size = sizeof(SceDisplayFrameBuf);
 
+#if defined(__SNC__)
+	sceDisplayGetFrameBuf(&pParam, SCE_DISPLAY_UPDATETIMING_NEXTVSYNC);
+#else
     sceDisplayGetFrameBuf(&pParam, SCE_DISPLAY_SETBUF_NEXTFRAME);
+#endif
 
     out32 = (Uint32 *)data;
     in32 = (Uint32 *)pParam.base;
@@ -1182,8 +1191,11 @@ VITA_GXM_RenderPresent(SDL_Renderer *renderer)
     VITA_GXM_RenderData *data = (VITA_GXM_RenderData *) renderer->driverdata;
     SceCommonDialogUpdateParam updateParam;
 
-    if (data->displayData.wait_vblank) {
-        sceGxmFinish(data->gxm_context);
+    if (data->drawing) {
+        sceGxmEndScene(data->gxm_context, NULL, NULL);
+        if (data->displayData.wait_vblank) {
+            sceGxmFinish(data->gxm_context);
+        }
     }
 
     data->displayData.address = data->displayBufferData[data->backBufferIndex];
@@ -1222,6 +1234,8 @@ VITA_GXM_RenderPresent(SDL_Renderer *renderer)
     data->pool_index = 0;
 
     data->current_pool = (data->current_pool + 1) % 2;
+
+    data->drawing = SDL_FALSE;
 }
 
 static void

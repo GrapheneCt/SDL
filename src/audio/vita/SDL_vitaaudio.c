@@ -25,7 +25,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#if !defined(__SNC__)
 #include <malloc.h>
+#endif
 
 #include "SDL_audio.h"
 #include "SDL_error.h"
@@ -35,11 +37,17 @@
 #include "../SDL_sysaudio.h"
 #include "SDL_vitaaudio.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#include <audioout.h>
+#else
 #include <psp2/kernel/threadmgr.h>
 #include <psp2/audioout.h>
 
-#define SCE_AUDIO_SAMPLE_ALIGN(s)   (((s) + 63) & ~63)
 #define SCE_AUDIO_MAX_VOLUME      0x8000
+#endif
+
+#define SCE_AUDIO_SAMPLE_ALIGN(s)   (((s) + 63) & ~63)
 
 /* The tag name used by VITA audio */
 #define VITAAUD_DRIVER_NAME         "vita"
@@ -48,7 +56,11 @@ static int
 VITAAUD_OpenDevice(_THIS, void *handle, const char *devname, int iscapture)
 {
     int format, mixlen, i, port = SCE_AUDIO_OUT_PORT_TYPE_MAIN;
+#if defined(__SNC__)
+    int vols[2] = { SCE_AUDIO_VOLUME_0DB, SCE_AUDIO_VOLUME_0DB };
+#else
     int vols[2] = {SCE_AUDIO_MAX_VOLUME, SCE_AUDIO_MAX_VOLUME};
+#endif
 
     this->hidden = (struct SDL_PrivateAudioData *)
         SDL_malloc(sizeof(*this->hidden));
@@ -81,11 +93,20 @@ VITAAUD_OpenDevice(_THIS, void *handle, const char *devname, int iscapture)
     }
 
     /* Setup the hardware channel. */
+#if defined(__SNC__)
+    if (this->spec.channels == 1) {
+        format = SCE_AUDIO_OUT_PARAM_FORMAT_S16_MONO;
+    } else {
+        format = SCE_AUDIO_OUT_PARAM_FORMAT_S16_STEREO;
+    }
+#else
     if (this->spec.channels == 1) {
         format = SCE_AUDIO_OUT_MODE_MONO;
-    } else {
+    }
+    else {
         format = SCE_AUDIO_OUT_MODE_STEREO;
     }
+#endif
 
     if(this->spec.freq < 48000) {
         port = SCE_AUDIO_OUT_PORT_TYPE_BGM;

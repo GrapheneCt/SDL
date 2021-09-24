@@ -22,8 +22,13 @@
 
 #if SDL_VIDEO_DRIVER_VITA
 
+#if defined(__SNC__)
+#include <kernel.h>
+#include <touch.h>
+#else
 #include <psp2/kernel/processmgr.h>
 #include <psp2/touch.h>
+#endif
 
 #include "SDL_events.h"
 #include "SDL_log.h"

@@ -25,8 +25,12 @@
 #include "SDL_thread.h"
 #include "SDL_systhread_c.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/kernel/threadmgr.h>
 #include <psp2/kernel/error.h>
+#endif
 
 struct SDL_mutex
 {

@@ -26,10 +26,17 @@
 #include "../SDL_sysvideo.h"
 #include "../SDL_egl_c.h"
 
+#if defined(__SNC__)
+#include <kernel.h>
+#include <display.h>
+#include <ime_dialog.h>
+#include <libsysmodule.h>
+#else
 #include <psp2/types.h>
 #include <psp2/display.h>
 #include <psp2/ime_dialog.h>
 #include <psp2/sysmodule.h>
+#endif
 
 typedef struct SDL_VideoData
 {

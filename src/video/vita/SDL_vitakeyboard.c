@@ -22,9 +22,15 @@
 
 #if SDL_VIDEO_DRIVER_VITA
 
+#if defined(__SNC__)
+#include <kernel.h>
+#include <ctrl.h>
+#include <hid.h>
+#else
 #include <psp2/kernel/processmgr.h>
 #include <psp2/ctrl.h>
 #include <psp2/hid.h>
+#endif
 
 #include "SDL_events.h"
 #include "SDL_log.h"

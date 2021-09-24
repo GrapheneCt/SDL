@@ -33,7 +33,11 @@
 #include "../../events/SDL_keyboard_c.h"
 
 /* VITA declarations */
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/kernel/processmgr.h>
+#endif
 #include "SDL_vitavideo.h"
 #include "SDL_vitatouch.h"
 #include "SDL_vitakeyboard.h"
@@ -491,8 +495,13 @@ void VITA_ShowScreenKeyboard(_THIS, SDL_Window *window)
     }
 
 #else
+#if defined(__SNC__)
+	SceWChar16 *title = L"";
+	SceWChar16 *text = L"";
+#else
     SceWChar16 *title = u"";
     SceWChar16 *text = u"";
+#endif
 
     SceImeDialogParam param;
     sceImeDialogParamInit(&param);

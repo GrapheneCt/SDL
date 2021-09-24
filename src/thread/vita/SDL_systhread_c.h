@@ -19,7 +19,11 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/types.h>
+#endif
 
 typedef SceUID SYS_ThreadHandle;
 

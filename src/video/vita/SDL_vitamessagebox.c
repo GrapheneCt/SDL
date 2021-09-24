@@ -24,7 +24,12 @@
 
 #include "SDL_vitavideo.h"
 #include "SDL_vitamessagebox.h"
+
+#if defined(__SNC__)
+#include <message_dialog.h>
+#else
 #include <psp2/message_dialog.h>
+#endif
 
 #if SDL_VIDEO_RENDER_VITA_GXM
 #include "../../render/vitagxm/SDL_render_vita_gxm_tools.h"
@@ -40,7 +45,11 @@ int VITA_ShowMessageBox(const SDL_MessageBoxData *messageboxdata, int *buttonid)
     char message[512];
 
     SceMsgDialogResult dialog_result;
+#if defined(__SNC__)
+	int init_result;
+#else
     SceCommonDialogErrorCode init_result;
+#endif
     SDL_bool setup_minimal_gxm = SDL_FALSE;
 
     if (messageboxdata->numbuttons > 3)

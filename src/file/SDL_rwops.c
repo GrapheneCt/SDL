@@ -64,8 +64,12 @@
 
 #ifdef __VITA__
 
+#if defined(__SNC__)
+#include <kernel.h>
+#else
 #include <psp2/io/fcntl.h>
 #include <psp2/io/stat.h>
+#endif
 
 #define READAHEAD_BUFFER_SIZE   1024
 static int SDLCALL

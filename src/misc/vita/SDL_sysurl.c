@@ -22,7 +22,12 @@
 #include "../SDL_sysurl.h"
 
 #include <string.h>
+#if defined(__SNC__)
+#include <apputil.h>
+#include <kernel.h>
+#else
 #include <psp2/apputil.h>
+#endif
 
 int
 SDL_SYS_OpenURL(const char *url)
@@ -34,9 +39,19 @@ SDL_SYS_OpenURL(const char *url)
     SDL_zero(boot_param);
     sceAppUtilInit(&init_param, &boot_param);
     SDL_zero(browser_param);
+#if defined(__SNC__)
+	browser_param.wbstr = url;
+	browser_param.wbstrLength = strlen(url);
+	browser_param.launchMode = SCE_APPUTIL_WEBBROWSER_LAUNCH_APP_MODAL;
+	if (sceAppUtilLaunchWebBrowser(&browser_param) < 0) {
+		browser_param.launchMode = SCE_APPUTIL_WEBBROWSER_LAUNCH_APP_NORMAL;
+		sceAppUtilLaunchWebBrowser(&browser_param);
+	}
+#else
     browser_param.str = url;
     browser_param.strlen = strlen(url);
-    sceAppUtilLaunchWebBrowser(&browser_param);
+	sceAppUtilLaunchWebBrowser(&browser_param);
+#endif
     return 0;
 }
 

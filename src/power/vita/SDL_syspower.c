@@ -25,7 +25,11 @@
 #if SDL_POWER_VITA
 
 #include "SDL_power.h"
+#if defined(__SNC__)
+#include <power.h>
+#else
 #include <psp2/power.h>
+#endif
 
 
 SDL_bool
